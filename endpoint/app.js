@@ -1,66 +1,119 @@
-const express = require('express');
-const app = express();
+// function foo() {
+//     return new Promise(function(resolve, reject) {
+      
+//         resolve(20)
+    
+//     });
+// };
 
-app.use(express.json({limit:'50mb'}));
-app.use(express.urlencoded({extended:false}));
+// foo().then(data => {
 
-const students = [];
+//     return data + 10;
 
-app.post('/student', (req, res) => {
-    students.push({
-        name: req.body.name,
-        age: req.body.age,
-        email: req.body.email,
-        phone: req.body.phone,
-    });
-    res.send("success");
-});
+// }).then(data => {
 
-app.get('/student', (req,res) => {
-	res.send (students);
-})
+//     return data + 5;
 
-// app.get('/student/:name', (req, res) => {
-//     for( let i = 0; i < students.length; ++i){
-//         if(students[i].name === res.params.name){
-//             return res.send(students[i]);
+// }).then(data => {
+//     console.log(data);
+// })
+
+
+
+
+
+
+
+
+// function foo1() {
+//     return new Promise( function(resolve, reject) {
+//         resolve(27);
+//     })
+// }
+
+// function foo2(arg) {
+//     return new Promise( function(resolve, reject){
+//         resolve( arg + 10);
+//     })
+// }
+
+
+// foo1().then(data => {
+    
+//     return foo2(data)
+
+// }).then(data => {
+
+//     console.log(data);
+
+// })
+
+
+
+
+
+
+// function foo(arg) {
+//     return new Promise( function (resolve, reject){
+//         if(arg > 10){
+//             resolve(arg);
+//         }else{
+//             reject("Something went wrong");
 //         };
-//     };
-//     return res.send("Student is not found!");
+//     });
+
+// };
+
+
+// foo(3).then(data => {
+   
+//     console.log(data);
+
+// }).catch(error => {
+   
+//     console.log(error);
+
 // });
 
-app.get('/student/:searchBy/:value', (req, res) => {
-    for(let i = 0; i < students.length; ++i) {
-      if(students[i][req.params.searchBy] === req.params.value){
-          return res.send(students[i]);params
-      };
-    };
 
-    return res.send("Student is not found");
-});
 
-app.delete('/student/:deleteBy/:value', (req, res) => {
-    for(let i = 0; i < students.length; ++i) {
-        if(students[i][req.params.deleteBy] === req.params.value){
-            delete students[i];
-            return res.send('success');
+
+
+
+
+function foo(arg) {
+    
+    return new Promise( function(resolve, reject) {
+        if(arg < 15){
+           
+            resolve(arg);
+        
+        }else{
+
+            reject("Something went wrong");
+        
         };
-    };
+    });
+};
 
-    return res.send("Student is not found!");
+
+foo(2).then( data => {
+
+    return data + 1;
+
+}).then( data => {
+
+    return data + 10;
+
+}).then( data => {
+
+    return data - 1;
+
+}).then( data => {
+     
+    console.log(data);
+
+}).catch( error => {
+
+    console.log(error);
 });
-
-app.put('/student/:searchByValue', (req, res) => {
-    for (let i = 0; i < students.length; ++i) {
-        if(students[i].email === req.params.searchByValue){
-            for(let key in req.body){
-                students[i][key] = req.body[key];
-            };
-            return res.send(students[i]);
-        };
-    };
-
-    return res.send("Student is not found!")
-})
-
-app.listen(3000);
